@@ -9,11 +9,10 @@ class Node(object):
 
 class BSTree(object):
 	def __init__(self,rootData=None):
+		self.root = None
 		if rootData:
 			self.root = Node(rootData)
-		else:
-			self.root = None
-
+		
 	def insert(self,data):
 		"""Create a chlid node and maintain the BST structure. """
 		node = Node(data)
