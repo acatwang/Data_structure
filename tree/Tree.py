@@ -65,18 +65,3 @@ class BSTree(object):
 		self.dfsTraverse(root.right)
 		return dfs
 
-""" TODO: Test Case"""
-
-tree = BSTree(3)
-tree.insert(5)
-tree.insert(1)
-tree.insert(10)
-tree.insert(9)
-tree.insert(2)
-print tree.root
-
-print tree.bfsTraverse()
-print tree.dfsTraverse(tree.root)
-
-print tree.search(tree.root,5)
-print tree.search(tree.root,15)
