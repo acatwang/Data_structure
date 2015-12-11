@@ -42,7 +42,6 @@ class BSTree(object):
 		else:
 			return self.search(root.right,value)
 		
-
 	def bfsTraverse(self):
 		""" Return a list of data in the tree in level-order """
 		queue = [self.root]
@@ -65,3 +64,32 @@ class BSTree(object):
 		self.dfsTraverse(root.right)
 		return dfs
 
+	def findMin(self,root): # find inorder sucessor
+		pass
+	def delete(self,root,val):
+		""" Remove the link to the given data without affecting BS tree """
+
+		if not root:
+			print "No such data"
+			return None
+
+		if val < root.data:
+			root.left = self.delete(root.left,val)
+		elif val > root.data:
+			root.right = self.delete(root.right,val)
+		else:  # found the to-be-deleted data
+				# no child
+				if not root.left and not root.right:
+					return None
+				
+				# one child
+				elif root.left and not root.right:
+					return root.left
+				elif root.right and not root.left:
+					return root.right
+				
+				# two childs
+				small = self.FindMin(root)
+				root.data = small.data
+				root.right = self.delete(root.right,small.data)
+		return root

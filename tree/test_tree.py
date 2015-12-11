@@ -85,5 +85,10 @@ class TreeTestCase(unittest.TestCase):
 		tree = self.makeTree()
 		self.assertEqual(tree.dfsTraverse(tree.root),self.inorders)
 
+	def test_delete(self):
+		tree = self.makeTree()
+		tree.delete(tree.root,11)
+		self.assertFalse(tree.search(tree.root,11))
+
 if __name__ == '__main__':
 	unittest.main()
