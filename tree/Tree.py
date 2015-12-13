@@ -65,7 +65,15 @@ class BSTree(object):
 		return dfs
 
 	def findMin(self,root): # find inorder sucessor
-		pass
+		""" Find the node with minimum val in right subtree """
+		if not root :
+			#print 'Empty Tree'
+			return -1
+		elif not root.left :
+			return root
+
+		return self.findMin(root.right)
+
 	def delete(self,root,val):
 		""" Remove the link to the given data without affecting BS tree """
 
@@ -89,7 +97,35 @@ class BSTree(object):
 					return root.right
 				
 				# two childs
-				small = self.FindMin(root)
+				small = self.findMin(root)
 				root.data = small.data
 				root.right = self.delete(root.right,small.data)
 		return root
+
+	def getSuccessor(self,val):
+		""" return the val of inorder successor node """
+		root = self.root
+		if not root:
+			return "Empty Tree"
+		
+		visited = []
+		cur = root
+		while cur:
+			
+			if val > cur.data:
+				visited.append(cur.data)	
+				cur = cur.right
+			elif val < cur.data:
+				visited.append(cur.data)
+				cur = cur.left
+			else: # found the val
+				if cur.right:
+					return self.findMin(cur.right).data
+				else :
+					for x in visited[::-1]:
+						if x >=cur.data:
+							return x
+		
+		return "Not in the tree"
+
+

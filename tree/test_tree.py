@@ -85,10 +85,33 @@ class TreeTestCase(unittest.TestCase):
 		tree = self.makeTree()
 		self.assertEqual(tree.dfsTraverse(tree.root),self.inorders)
 
-	def test_delete(self):
+	def test_find_min(self):
+		emptyTree = BSTree()
+		self.assertEqual(emptyTree.findMin(emptyTree.root), -1)
 		tree = self.makeTree()
-		tree.delete(tree.root,11)
-		self.assertFalse(tree.search(tree.root,11))
+		self.assertEqual(tree.findMin(tree.root).data,10)
+		three = tree.root.left
+		self.assertEqual(tree.findMin(three).data,4)
+
+	def test_delete_node_with_one_child(self):
+		tree = self.makeTree()
+		tree.delete(tree.root,10)
+		self.assertFalse(tree.search(tree.root,10))
+		self.assertEqual(tree.root.right.data,11)
+	
+	def test_delete_node_with_two_childs(self):
+		tree = self.makeTree()
+		tree.delete(tree.root,3)
+		self.assertFalse(tree.search(tree.root,3))
+		self.assertEqual(tree.root.left.data,4)
+
+	def test_getSuccessor(self):
+		tree = self.makeTree()
+		self.assertEqual(tree.getSuccessor(1),3)
+		self.assertEqual(tree.getSuccessor(3),4)
+		self.assertEqual(tree.getSuccessor(5),10)
+		self.assertEqual(tree.getSuccessor(4),5)
+		self.assertEqual(tree.getSuccessor(42),"Not in the tree")
 
 if __name__ == '__main__':
 	unittest.main()
